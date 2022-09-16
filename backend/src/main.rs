@@ -30,13 +30,17 @@ fn index() -> &'static str {
 fn myrocket() -> String {
     "My 🚀 server".to_string()
 }
+#[get("/login")]
+fn login() -> String {
+    "login".to_string()
+}
 fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .mount(
             "/",
             routes![
                 //PASS IN THE NAME OF YOUR ROUTES HERE
-                index, myrocket
+                index, myrocket, login
             ],
         )
         .attach(make_cors())

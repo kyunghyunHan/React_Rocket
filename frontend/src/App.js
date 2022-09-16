@@ -7,8 +7,13 @@ function App() {
     const response = await axios("http://localhost:8000/myrocket");
     console.log(response.data);
   };
+  const getData2 = async () => {
+    const response = await axios("http://localhost:8000/login");
+    console.log(response.data);
+  };
   useEffect(() => {
     getData();
+    getData2();
   }, []);
 
   return (
