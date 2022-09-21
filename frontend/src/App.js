@@ -7,7 +7,7 @@ function App() {
 
   const test = async () => {
     await axios
-      .get("http://localhost:8000/hello", {})
+      .post("http://localhost:8000/read", {})
       .then((res) => {
         console.log(res.data);
         setData(res.data.title);
@@ -20,11 +20,10 @@ function App() {
   const test3 = async () => {
     await axios
       .post("http://localhost:8000/hello", {
-        id: null,
         name: "The Flash",
         identity: "1",
         hometown: "2",
-        age: "29"
+        age: 29
       })
       .then((res) => {
         console.log(res.data);
@@ -37,8 +36,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <button onClick={test}>notice1</button>
-        <button onClick={test3}>hellopost</button>
+        <button onClick={test}>read</button>
+        <button onClick={test3}>post</button>
         <div> {Data}</div>
         <div> {Data2}</div>
       </header>

@@ -23,17 +23,23 @@ mod db;
 mod routes;
 
 fn make_cors() -> Cors {
+    // let allowed_origins = AllowedOrigins::all();
     let allowed_origins =
-        AllowedOrigins::some_exact(&["http://localhost:8000", "http://localhost:3000"]);
+        AllowedOrigins::some_exact(&["http://localhost:3000", "http://localhost:8000"]);
     CorsOptions {
         // 5.
         allowed_origins,
-        allowed_methods: vec![Method::Get].into_iter().map(From::from).collect(), // 1.
-        allowed_headers: AllowedHeaders::some(&[
-            "Authorization",
-            "Accept",
-            "Access-Control-Allow-Origin", // 6.
-        ]),
+        allowed_methods: vec![
+            Method::Get,
+            Method::Post,
+            Method::Delete,
+            Method::Options,
+            Method::Patch,
+        ]
+        .into_iter()
+        .map(From::from)
+        .collect(), // 1.
+        allowed_headers: AllowedHeaders::All,
         allow_credentials: true,
         ..Default::default()
     }
@@ -43,6 +49,6 @@ fn make_cors() -> Cors {
 pub fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .manage(db::connecion::init_pool())
-        .mount("/", routes![routes::hero2::create,])
+        .mount("/", routes![routes::hero2::read, routes::hero2::create])
         .attach(make_cors())
 }

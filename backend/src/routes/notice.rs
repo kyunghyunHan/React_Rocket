@@ -16,7 +16,7 @@ pub struct Notice {
     link: String,
     writer: String,
 }
-// #[get("/hello")]
+// #[podt("/hello")]
 // pub fn read() -> Json<JsonValue> {
 //     Json(json!(["hero 1", "hero 2"]))
 // }
