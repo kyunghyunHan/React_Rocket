@@ -26,7 +26,10 @@ pub fn read() -> Json<JsonValue> {
 pub fn create(hero: Json<Hero>) -> Json<Hero> {
     hero
 }
-
+#[delete("/hello/<id>")]
+pub fn delete(id: i32) -> Json<JsonValue> {
+    Json(json!({"status": "ok"}))
+}
 fn error_status(error: Error) -> Status {
     match error {
         Error::NotFound => Status::Ok, // 챗봇은 무조건 200
