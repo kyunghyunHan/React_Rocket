@@ -6,6 +6,10 @@
 create-react-app frontend
 ```
 
+```
+axios
+```
+
 ## 백엔드
 
 ```
@@ -50,14 +54,15 @@ r2d2-diesel = "*"
 ## rocket
 
 - restapi
+- 빠른 웹 애플리케이션 작성을 위한 웹 프레임워크
 
 ## rocket_contrib
 
-- Rocket 웹 프레임워크를 위한 커뮤니티 기여 라이브러리.ㄴ
+- Rocket 웹 프레임워크를 위한 커뮤니티 기여 라이브러리
 
 ## serde
 
-- 일반 직렬화/역직렬화 프레임워크
+- Rust 데이터 구조를 직렬화 및 역직렬화하기 위한 프레임워크
 
 ## serde_json
 

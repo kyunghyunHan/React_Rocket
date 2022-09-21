@@ -43,13 +43,6 @@ fn make_cors() -> Cors {
 pub fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .manage(db::connecion::init_pool())
-        .mount(
-            "/",
-            routes![
-                routes::notice::hello,
-                routes::notice::db_test,
-                routes::notice::myrocket
-            ],
-        )
+        .mount("/", routes![routes::hero2::create,])
         .attach(make_cors())
 }
