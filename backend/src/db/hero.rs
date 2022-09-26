@@ -1,7 +1,4 @@
 use crate::db::schema::heroes;
-use diesel;
-use diesel::mysql::MysqlConnection;
-use diesel::prelude::*;
 
 #[table_name = "heroes"]
 #[derive(Serialize, Deserialize, Queryable, Insertable)]

@@ -1,5 +1,5 @@
 use crate::db::connecion::Conn;
-use crate::db::hero;
+
 use crate::db::hero::Hero;
 
 use crate::db::schema::heroes;
@@ -7,12 +7,11 @@ use crate::db::schema::heroes;
 use diesel::prelude::*;
 
 use diesel;
-use diesel::mysql::MysqlConnection;
+
 use diesel::result::Error;
 use rocket::http::Status;
 use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
-use serde::*;
 
 #[post("/read")]
 pub fn read() -> Json<JsonValue> {
@@ -29,7 +28,7 @@ pub fn delete(id: i32) -> Json<JsonValue> {
 }
 fn error_status(error: Error) -> Status {
     match error {
-        Error::NotFound => Status::Ok, // 챗봇은 무조건 200
+        Error::NotFound => Status::Ok,
         _ => Status::InternalServerError,
     }
 }
