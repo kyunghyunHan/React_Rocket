@@ -26,7 +26,6 @@ pub fn init_pool() -> Pool {
     Pool::new(manager).expect("db pool")
 }
 
-// #[derive(ConnectionPool)]
 pub struct Conn(pub PooledConnection<ConnectionManager<MysqlConnection>>);
 
 impl Deref for Conn {

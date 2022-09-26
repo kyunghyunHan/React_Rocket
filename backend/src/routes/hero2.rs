@@ -68,3 +68,26 @@ pub fn create_page_view(conn: Conn, page_view: Json<Hero>) -> Result<String, Str
 
     Ok(format!("Inserted {} row(s).", inserted_rows))
 }
+// #[get("/page_view")]
+
+// pub fn list_page_views(conn: Conn) -> Result<Json<Vec<Hero>>, String> {
+//     use crate::db::schema::heroes::dsl::*;
+//     heroes
+//         .load(&conn)
+//         .map_err(|err| -> String {
+//             println!("Error querying page views: {:?}", err);
+//             "Error querying page views from the database".into()
+//         })
+//         .map(Json)
+// }
+// #[get("page_view/<id>")]
+// pub fn retrieve(connection: Conn, id: i32) -> Result<Json<Hero>, String> {
+//     use crate::db::schema::heroes::dsl::*;
+//     heroes
+//         .run(move |c| heroes::table.filter(heroes::id.eq(id)).first(c))
+//         .map_err(|err| -> String {
+//             println!("Error querying page views: {:?}", err);
+//             "Error querying page views from the database".into()
+//         })
+//         .map(Json)
+// }
