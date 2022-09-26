@@ -21,7 +21,7 @@ extern crate serde_derive;
 
 mod db;
 mod routes;
-
+pub struct DbConn(diesel::MysqlConnection);
 fn make_cors() -> Cors {
     // let allowed_origins = AllowedOrigins::all();
     let allowed_origins =
@@ -54,7 +54,8 @@ pub fn rocket() -> rocket::Rocket {
             routes![
                 routes::hero2::read,
                 routes::hero2::create,
-                routes::hero2::delete
+                routes::hero2::delete,
+                routes::hero2::create_page_view
             ],
         )
         .attach(make_cors())

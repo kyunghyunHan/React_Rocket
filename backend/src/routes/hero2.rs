@@ -14,45 +14,6 @@ use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
 use serde::*;
 
-// impl Hero {
-//     pub fn create(hero: Hero, connection: &MysqlConnection) -> Hero {
-//         diesel::insert_into(heroes::table)
-//             .values(&hero)
-//             .execute(connection)
-//             .expect("Error creating new hero");
-
-//         heroes::table
-//             .order(heroes::id.desc())
-//             .first(connection)
-//             .unwrap()
-//     }
-
-//     pub fn read(connection: &MysqlConnection) -> Vec<Hero> {
-//         heroes::table
-//             .order(heroes::id.asc())
-//             .load::<Hero>(connection)
-//             .unwrap()
-//     }
-
-//     pub fn update(id: i32, hero: Hero, connection: &MysqlConnection) -> bool {
-//         diesel::update(heroes::table.find(id))
-//             .set(&hero)
-//             .execute(connection)
-//             .is_ok()
-//     }
-
-//     pub fn delete(id: i32, connection: &MysqlConnection) -> bool {
-//         diesel::delete(heroes::table.find(id))
-//             .execute(connection)
-//             .is_ok()
-//     }
-// }
-// pub fn create_post(hero: Json<Hero>, conn: &MysqlConnection) -> QueryResult<Hero> {
-//     diesel::insert_into(heroes::table)
-//         .values(&hero)
-//         .get_result(conn)
-// }
-
 #[post("/read")]
 pub fn read() -> Json<JsonValue> {
     Json(json!(["hero 1", "hero 2"]))
@@ -61,14 +22,7 @@ pub fn read() -> Json<JsonValue> {
 pub fn create(hero: Json<Hero>) -> Json<Hero> {
     hero
 }
-// #[post("/hello", data = "<hero>")]
-// pub fn create(hero: Json<Hero>, connection: Conn) -> Json<Hero> {
-//     let insert = Hero {
-//         id: None,
-//         ..hero.into_inner()
-//     };
-//     Json(Hero::create(insert, &connection))
-// }
+
 #[delete("/hello/<id>")]
 pub fn delete(id: i32) -> Json<JsonValue> {
     Json(json!({"status": "ok"}))
@@ -78,4 +32,40 @@ fn error_status(error: Error) -> Status {
         Error::NotFound => Status::Ok, // 챗봇은 무조건 200
         _ => Status::InternalServerError,
     }
+}
+
+use serde::{Deserialize, Serialize};
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Notice {
+    id: u64,
+    title: String,
+    date: String,
+    link: String,
+    writer: String,
+}
+
+#[get("/hello")]
+pub fn hello() -> Json<Notice> {
+    let notice = Notice {
+        id: 12345,
+        title: "공지1".to_string(),
+        date: "2021-07-09".to_string(),
+        link: "https://".to_string(),
+        writer: "CSW".to_string(),
+    };
+    Json(notice)
+}
+#[post("/page_view", data = "<page_view>")]
+
+pub fn create_page_view(conn: Conn, page_view: Json<Hero>) -> Result<String, String> {
+    let inserted_rows = diesel::insert_into(heroes::table)
+        .values(&page_view.0)
+        .execute(&*conn.0)
+        .map_err(|err| -> String {
+            println!("Error inserting row: {:?}", err);
+
+            "Error inserting row into database".into()
+        })?;
+
+    Ok(format!("Inserted {} row(s).", inserted_rows))
 }

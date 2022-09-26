@@ -50,12 +50,29 @@ function App() {
         console.log(err);
       });
   };
+  const test5 = async () => {
+    await axios
+      .post("http://localhost:8000/page_view/", {
+        name: "The Flash",
+        identity: "1",
+        hometown: "2",
+        age: 29
+      })
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data.title);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <div className="App">
       <header className="App-header">
         <button onClick={test}>read</button>
         <button onClick={test3}>post</button>
         <button onClick={test4}>delete</button>
+        <button onClick={test5}>newpost</button>
         <div> {Data}</div>
         <div> {Data2}</div>
       </header>
