@@ -7,9 +7,9 @@ use crate::db::schema::heroes;
 use diesel::prelude::*;
 
 use diesel;
-
 use diesel::result::Error;
 use rocket::http::Status;
+// use rocket::response::Failure;
 use rocket_contrib::json::Json;
 use rocket_contrib::json::JsonValue;
 
@@ -72,14 +72,15 @@ pub fn create_page_view(conn: Conn, page_view: Json<Hero>) -> Result<String, Str
 
 // pub fn list_page_views(conn: Conn) -> Result<Json<Vec<Hero>>, String> {
 //     use crate::db::schema::heroes::dsl::*;
-//     heroes
-//         .load(&conn)
-//         .map_err(|err| -> String {
-//             println!("Error querying page views: {:?}", err);
-//             "Error querying page views from the database".into()
-//         })
-//         .map(Json)
+//     heroes.load(&*conn).expect("Error loading users").map(Json)
 // }
+// #[get("/")]
+// fn all(connection: Conn) -> Result<Json<Vec<Hero>>> {
+//     heroes::all(&connection)
+//         .map(|people| Json(people))
+//         .map_err(|error| error_status(error))
+// }
+
 // #[get("page_view/<id>")]
 // pub fn retrieve(connection: Conn, id: i32) -> Result<Json<Hero>, String> {
 //     use crate::db::schema::heroes::dsl::*;
@@ -90,4 +91,8 @@ pub fn create_page_view(conn: Conn, page_view: Json<Hero>) -> Result<String, Str
 //             "Error querying page views from the database".into()
 //         })
 //         .map(Json)
+// }
+// #[get("/users/all")]
+// fn fetch_all_users(conn: Conn, database_url: State<String>) -> Json<Vec<Hero>> {
+//     heroes.load::<Hero>(&conn).expect("Error loading users")
 // }
