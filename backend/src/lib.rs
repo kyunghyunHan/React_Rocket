@@ -11,8 +11,6 @@ extern crate rocket_contrib;
 
 #[macro_use]
 extern crate diesel;
-// #[macro_use]
-// extern crate diesel_codegen;
 extern crate r2d2;
 extern crate r2d2_diesel;
 
@@ -21,7 +19,6 @@ extern crate serde_derive;
 
 mod db;
 mod routes;
-pub struct DbConn(diesel::MysqlConnection);
 fn make_cors() -> Cors {
     // let allowed_origins = AllowedOrigins::all();
     let allowed_origins =
@@ -52,10 +49,10 @@ pub fn rocket() -> rocket::Rocket {
         .mount(
             "/",
             routes![
-                routes::hero2::read,
-                routes::hero2::create,
-                routes::hero2::delete,
-                routes::hero2::create_page_view
+                routes::user::read,
+                routes::user::delete,
+                routes::user::create,
+                routes::user::list_page_views,
             ],
         )
         .attach(make_cors())

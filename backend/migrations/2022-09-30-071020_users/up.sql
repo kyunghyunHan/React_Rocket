@@ -1,6 +1,6 @@
 -- Your SQL goes here
 
-CREATE TABLE heroes (
+CREATE TABLE users (
   id INT(11) PRIMARY KEY AUTO_INCREMENT,
   `name` VARCHAR(60) NOT NULL,
   identity VARCHAR(60) NOT NULL,
